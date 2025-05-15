@@ -10,7 +10,7 @@ import java.io.File
  *   `v <id> <x> <y>`
  * - Lines starting with 'c' or 'p' are ignored (comments or metadata).
  */
-class PointUtils(val points: List<Point> = listOf()) {
+class PointUtils() {
 
     companion object {
 
@@ -21,7 +21,7 @@ class PointUtils(val points: List<Point> = listOf()) {
          * @param filename The name of the input file (from the data folder)
          * @return A PointList containing parsed points
          */
-        fun readPointsFromFile(filename: String): PointUtils {
+        fun readPointsFromFile(filename: String): PointList {
             val path = "src/main/resources/data/$filename"
             val lines = File(path).readLines()
 
@@ -37,24 +37,30 @@ class PointUtils(val points: List<Point> = listOf()) {
                 } else null
             }
 
-            return PointUtils(points)
+            val pointList = PointList(points.size)
+            for (it in points) {
+                pointList.append(it)
+            }
+
+            return pointList
         }
-    }
 
-    /**
-     * Writes the list of points to a .co output file in the format:
-     * `<id> <x> <y>` (one per line).
-     *
-     * @param filename The name of the output file (written to outputs folder)
-     */
-    fun writePointsToFile(filename: String) {
-        val outputPath = "src/main/resources/outputs/$filename"
+        /**
+         * Writes the list of points to a .co output file in the format:
+         * `<id> <x> <y>` (one per line).
+         *
+         * @param filename The name of the output file (written to outputs folder)
+         */
+        fun writePointsToFile(filename: String, points: PointList) {
+            val outputPath = "src/main/resources/outputs/$filename"
 
-        File(outputPath).printWriter().use { out ->
-            for (point in points) {
-                // Write each point in the expected format
-                out.println("${point.id} ${point.x} ${point.y}")
+            File(outputPath).printWriter().use { out ->
+                for (point in points) {
+                    // Write each point in the expected format
+                    out.println("${point.id} ${point.x} ${point.y}")
+                }
             }
         }
     }
+
 }
