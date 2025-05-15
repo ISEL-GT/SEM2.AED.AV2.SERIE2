@@ -1,11 +1,9 @@
 package serie2.problema
 
-import com.sun.tools.javac.util.Convert
 import serie2.part4.HashMapCustom
 import serie2.problema.point.Point
 import serie2.problema.point.PointList
-import serie2.problema.point.PointUtils
-import java.time.chrono.JapaneseEra.values
+import serie2.problema.point.PointUtils2
 
 /**
  * Implementation2 performs operations on sets of 2D points using
@@ -35,11 +33,11 @@ class Implementation2 {
         map2 = HashMapCustom()
 
         // Load points from the first file
-        for (p in PointUtils.readPointsFromFile(file1))
+        for (p in PointUtils2.readPointsFromFile(file1))
             map1.put(p.id, p)
 
         // Load points from the second file
-        for (p in PointUtils.readPointsFromFile(file2))
+        for (p in PointUtils2.readPointsFromFile(file2))
             map2.put(p.id, p)
     }
 
